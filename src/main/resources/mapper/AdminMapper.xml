@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cm.mapper.AdminMapper">
+    <insert id="insertAdmin" useGeneratedKeys="true" keyProperty="id" parameterType="Admin">
+        insert into Admin(account,password}values(#{account},#{password})
+    </insert>
+    <delete id="deleteAdmin" parameterType="long">
+        delete from Admin where id=#{id};
+    </delete>
+    <update id="updateAdmin" parameterType="Admin">
+        update Admin set account=#{account},password=#{password} where id=#{id}
+    </update>
+    <select id="selectAdminById" parameterType="long" resultMap="Admin">
+        SELECT * FROM Admin WHERE id=#{id}
+    </select>
+
+    <resultMap id="AdminResultMap" type="Management.entity.Attendance">
+        <id property="id" column="id"/>
+        <result property="klassSeminarId" column="klass_seminar_id"/>
+        <result property="teamId" column="team_id"/>
+        <result property="teamOrder" column="team_order"/>
+        <result property="isPresent" column="is_present"/>
+        <result property="reportName" column="report_name"/>
+        <result property="reportUrl" column="report_url"/>
+        <result property="pptName" column="ppt_name"/>
+        <result property="pptUrl" column="ppt_url"/>
+
+    </resultMap>
+
+</mapper>

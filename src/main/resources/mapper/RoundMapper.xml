@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cm.dao.RoundDao">
+    <insert id="insertRound" useGeneratedKeys="true" keyProperty="id" parameterType="Round">
+        insert into Round(course_id,round_serial,presentation_score_method,report_score_method,question_score_method)values
+        (#{course_id},#{Round_serial},#{presentation_score_method},#{report_score_method},#{question_score_method})
+    </insert>
+    <delete id="deleteRound" parameterType="long">
+        delete from Round where id=#{id};
+    </delete>
+    <update id="updateRound" parameterType="Round">
+        update Round set course_id=#{course_id},round_serial=#{round_serial},presentation_score_method=#{presentation_score_method}
+        ,report_score_method=#{report_score_method},question_score_method=#{question_score_method} where id=#{id}
+    </update>
+    <select id="selectRoundById" parameterType="long" resultMap="Round">
+        SELECT * FROM Round WHERE id=#{id}
+    </select>
+</mapper>

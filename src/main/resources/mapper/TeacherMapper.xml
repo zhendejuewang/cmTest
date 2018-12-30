@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cm.dao.TeacherDao">
+    <insert id="insertTeacher" useGeneratedKeys="true" keyProperty="id" parameterType="Teacher">
+        insert into Teacher(account,passwoed,is_active,name,email)values
+        (#{account},#{password},#{is_active},#{name},#{email})
+    </insert>
+    <delete id="deleteTeacher" parameterType="long">
+        delete from Teacher where id=#{id};
+    </delete>
+    <update id="updateTeacher" parameterType="Teacher">
+        update Teacher set account=#{account},password=#{password},
+        is_active=#{is_active},name=#{name},email=#{email} where id=#{id}
+    </update>
+    <select id="selectTeacherById" parameterType="long" resultType="Teacher">
+        SELECT * FROM Teacher WHERE id=#{id}
+    </select>
+
+    <select id="selectTeacherByAccount" parameterType="String" resultType="Teacher">
+        SELECT * FROM Teacher WHERE account=#{account}
+    </select>
+</mapper>

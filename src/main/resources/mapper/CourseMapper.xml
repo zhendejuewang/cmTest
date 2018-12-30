@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cm.dao.CourseDao">
+    <insert id="insertCourse" useGeneratedKeys="true" keyProperty="id" parameterType="Course">
+        insert into Course(teacher_id,course_name,introduction,presentation_percentage,question_percentage,report_percentage,
+        team_start_time,team_end_time,team_main_course_id,seminar_main_course_id)values
+        (#{teacher_id},#{course_name},#{introduction},#{presentation_percentage},#{question_percentage},#{report_percentage},
+        #{team_start_time},#{team_end_time},#{team_main_course_id},#{seminar_main_course_id})
+    </insert>
+    <delete id="deleteCourse" parameterType="long">
+        delete from Course where id=#{id};
+    </delete>
+    <update id="updateCourse" parameterType="Course">
+        update Course set teacher_id=#{teacher_id},course_name=#{course_name},introduction=#{introduction},
+        presentation_percentage=#{presentation_percentage},question_percentage=#{question_percentage},report_percentage=#{report_percentage},
+        team_start_time=#{team_start_time},team_end_time=#{team_end_time},team_main_course_id=#{team_main_course_id},seminar_main_course_id=#{seminar_main_course_id}
+        where id=#{id}
+    </update>
+    <select id="selectCourseById" parameterType="long" resultMap="Course">
+        SELECT * FROM Course WHERE id=#{id}
+    </select>
+</mapper>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cm.dao.StudentDao">
+    <insert id="insertStudent" useGeneratedKeys="true" keyProperty="id" parameterType="Student">
+        insert into Student(account,passwoed,is_active,name,email)values
+        (#{account},#{password},#{is_active},#{name},#{email})
+    </insert>
+    <delete id="deleteStudent" parameterType="long">
+        delete from Student where id=#{id};
+    </delete>
+    <update id="updateStudent" parameterType="Student">
+        update Student set account=#{account},password=#{password},
+        is_active=#{is_active},name=#{name},email=#{email} where id=#{id}
+    </update>
+    <select id="selectStudentById" parameterType="long" resultType="Student">
+        SELECT * FROM Student WHERE id=#{id}
+    </select>
+
+    <select id="selectStudentByAccount" parameterType="String" resultType="Student">
+        SELECT * FROM Student WHERE account=#{account}
+    </select>
+</mapper>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cm.dao.TeamDao">
+    <insert id="insertTeam" useGeneratedKeys="true" keyProperty="id" parameterType="Team">
+        insert into Team(klass_id,course_id,leader_id,team_name,team_serial,status)values
+        (#{klass_id},#{course_id},#{leader_id},#{team_name},#{team_serial},#{status})
+    </insert>
+    <delete id="deleteTeam" parameterType="long">
+        delete from Team where id=#{id};
+    </delete>
+    <update id="updateTeam" parameterType="Team">
+        update Team set klass_id=#{klass_id},course_id=#{course_id},leader_id=#{leader_id},
+        team_name=#{team_name},team_serial=#{team_serial},status=#{status} where id=#{id}
+    </update>
+    <select id="selectTeamById" parameterType="long" resultMap="Team">
+        SELECT * FROM Team WHERE id=#{id}
+    </select>
+</mapper>

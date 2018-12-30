@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cm.dao.KlassDao">
+    <insert id="insertKlass" useGeneratedKeys="true" keyProperty="id" parameterType="Klass">
+        insert into Klass(course_id,grade,klass_serial,klass_time,klass_location)values
+        (#{course_id},#{grade},#{klass_serial},#{klass_time},#{klass_location})
+    </insert>
+    <delete id="deleteKlass" parameterType="long">
+        delete from Klass where id=#{id};
+    </delete>
+    <update id="updateKlass" parameterType="Klass">
+        update Klass set course_id=#{course_id},grade=#{grade},
+        ,klass_serial=#{klass_serial},klass_time=#{klass_time},klas_location=#{klass_location} where id=#{id}
+    </update>
+    <select id="selectKlassById" parameterType="long" resultMap="Klass">
+        SELECT * FROM Klass WHERE id=#{id}
+    </select>
+</mapper>

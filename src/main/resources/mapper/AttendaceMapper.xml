@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cm.dao.AttendanceDao">
+    <insert id="insertAttendance" useGeneratedKeys="true" keyProperty="id" parameterType="Attendance">
+        insert into Attendance(klass_seminar_id,team_id,team_order,is_present,report_name,report_url,ppt_name,ppt_url)values
+        (#{klass_seminar_id},#{team_id},#{team_order},#{is_present},#{report_name},#{report_url},#{ppt_name},#{ppt_url})
+    </insert>
+    <delete id="deleteAttendance" parameterType="long">
+        delete from Attendance where id=#{id};
+    </delete>
+    <update id="updateAttendance" parameterType="Attendance">
+        update Attendance set klass_seminar_id=#{klass_seminar_id},team_id=#{team_id},team_order=#{team_order},is_persent=#{is_persent},
+        report_name=#{report_name},report_url=#{report_url},ppt_name=#{ppt_name},ppt_url=#{ppt_url} where id=#{id}
+    </update>
+    <select id="selectAttendanceById" parameterType="long" resultMap="Attendance">
+        SELECT * FROM Attendance WHERE id=#{id}
+    </select>
+</mapper>
