@@ -1,14 +1,15 @@
 package cm.controller;
 
+import cm.dao.QuestionDAO;
 import cm.dao.StudentDAO;
 import cm.dao.TeamDAO;
-import cm.dao.QuestionDAO;
 import cm.entity.Attendance;
 import cm.entity.Question;
-import cm.entity.Team;
 import cm.entity.Student;
-import cm.service.TeamService;
+import cm.entity.Team;
+import cm.service.AttendanceService;
 import cm.service.StudentService;
+import cm.service.TeamService;
 import cm.vo.NextAttendanceVO;
 import cm.vo.SelectedQuestionVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,8 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
-import java.lang.Long;
+import java.util.List;
+
 /**
  * @Author: Yunfeng Huang
  * @Description:
@@ -69,7 +70,7 @@ public class WebSocketController {
      * 挑选临时问题
      * @return selectedQuestionVO
      */
-    @MessageMapping("/teacher/select/{klassSeminarId}/{attendanceId}")
+    @MessageMapping("/teacher/select/{klassSeminarId}")
     @SendTo("/topic/broadcast")
     public SelectedQuestionVO selectTempQuestion(@DestinationVariable("klassSeminarId") String klassSeminarId,
                                                  @DestinationVariable("attendanceId") String attendanceId) {
@@ -97,7 +98,7 @@ public class WebSocketController {
             selectedQuestionVO.setStudentAccount(student.getAccount());
             TeamService teamService = null;
             Team team = teamService.getByTeamId(selectedQuestion.getTeamId());
-            selectedQuestionVO.setTeamNumber(team.getKlassSerial(),team.getTeamSerial());
+            selectedQuestionVO.setTeamNumber(team.getKlassSerial(), Integer.valueOf(team.getTeamSerial()));
 
             for(int i=0;i<tempQuestionList.size();i++)
             {
@@ -121,7 +122,7 @@ public class WebSocketController {
                                            @DestinationVariable("teamId") String teamId,
                                            @DestinationVariable("teamOrder") String teamOrder){
 
-        Attendance currentAttendance = attendanceService.getByKlassSeminarIdAndTeamId(klassSeminarId,teamId);
+        Attendance currentAttendance = attendanceService.getByKlassSeminarIdAndTeamId(Long.parseLong(klassSeminarId),Long.parseLong(teamId));
         Attendance nextAttendance = attendanceService.getByKlassSeminarIdAndTeamOrder(currentAttendance.getKlassSeminarId(),currentAttendance.getTeamOrder()+1);
         if(nextAttendance != null) {
             NextAttendanceVO nextAttendanceVO = null;
@@ -130,7 +131,7 @@ public class WebSocketController {
             nextAttendanceVO.setTeamId(String.valueOf(nextAttendance.getTeamId()));
             TeamService teamService = null;
             Team team = teamService.getByTeamId(nextAttendance.getTeamId());
-            nextAttendanceVO.setTeamNumber(team.getKlassSerial(), team.getTeamSerial());
+            nextAttendanceVO.setTeamNumber(team.getKlassSerial(), Integer.valueOf(team.getTeamSerial()));
             nextAttendanceVO.setStatus(1);
             return nextAttendanceVO;
         }
