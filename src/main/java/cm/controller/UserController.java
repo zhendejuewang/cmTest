@@ -1,63 +1,49 @@
 package cm.controller;
 
-import cm.entity.Course;
-import cm.entity.Student;
-import cm.entity.Teacher;
-import cm.service.KlassService;
-import cm.service.CourseService;
-//import cm.service.UserService;
 import cm.service.StudentService;
 import cm.service.TeacherService;
-import com.sun.deploy.net.HttpResponse;
+import cm.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.websocket.server.PathParam;
 import java.io.IOException;
-import java.util.List;
+
+//import cm.service.UserService;
 
 @Controller
-@RequestMapping("/cm")
+@RequestMapping("")
 public class UserController {
+
 	@Autowired
-    TeacherService teacherService=new TeacherService();
-	StudentService studentService=new StudentService();
+	private StudentService studentService;
+	@Autowired
+	private TeacherService teacherService;
 
-
-	Teacher teacher;
-	Student student;
+	public static UserVO userVO;
 
 	//登录
-	@RequestMapping(value="/login",method= RequestMethod.GET)
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String Login() {
 		return "userlogin";
 	}
-	
+
 	//登录提交表单
-	@RequestMapping(value="/login",method= RequestMethod.POST)
-	public String LoginSubmit(String id, String password) {
-		if(id.length()==11) {
-			Student tmp = studentService.findStudentByAccount(id);
-			if (tmp.getPassword().equals(password)) {
-				student=tmp;
-				if(student.getIs_active()==0)//0是未激活
-					return "student_activation";
-				return "student_main";
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public String LoginSubmit(String account, String password) throws IOException {
+		if (account.length() == 11) {
+			if (studentService.vertify(account, password)) {
+				userVO=studentService.getUserVOByAccount(account);
+				return "redirect:/cm/student/index";
+			} else {
+				if (teacherService.vertify(account, password)) {
+					teacherService.getUserVOByAccount(account);
+					return "redirect:/cm/teacher/index";
+				}
 			}
+			return "userlogin";
 		}
-		else{
-			Teacher tmp=teacherService.findTeacherByAccount(id);
-			if(tmp.getPassword().equals(password)) {
-				teacher=tmp;
-				if(teacher.getIs_active()==0)
-					return "teacher_activation";
-				return "teacher_main";
-			}
-		}
-		return "userlogin";
+		else return "redirect:/cm/teacher/index";
 	}
 }
