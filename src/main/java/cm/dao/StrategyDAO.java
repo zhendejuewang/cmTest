@@ -23,15 +23,6 @@ public class StrategyDAO {
 
 
     @Autowired
-    private TeamStrategyMapper teamStrategyMapper;
-
-    @Autowired
-    private TeamAndStrategyMapper teamAndStrategyMapper;
-
-    @Autowired
-    private TeamOrStrategyMapper teamOrStrategyMapper;
-
-    @Autowired
     private ConflictCourseStrategyMapper conflictCourseStrategyMapper;
 
     @Autowired
@@ -39,6 +30,15 @@ public class StrategyDAO {
 
     @Autowired
     private CourseMemberLimitStrategyMapper courseMemberLimitStrategyMapper;
+
+    @Autowired
+    private TeamStrategyMapper teamStrategyMapper;
+
+    @Autowired
+    private TeamAndStrategyMapper teamAndStrategyMapper;
+
+    @Autowired
+    private TeamOrStrategyMapper teamOrStrategyMapper;
 
     /**
      * 总判断入口

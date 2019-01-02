@@ -16,5 +16,6 @@ public class Question {
     private Long teamId;
     private Long studentId;
     private Long klassSeminarId;
+    private Long attendanceId;
     private BigDecimal score;
 }

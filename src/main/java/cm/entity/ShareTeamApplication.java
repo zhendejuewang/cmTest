@@ -8,10 +8,4 @@ import lombok.Data;
  * @Date: Created in 2018/12/19
  */
 @Data
-public class ShareTeamApplication {
-    private Long id;
-    private Long mainCourseId;
-    private Long subCourseId;
-    private Long subCourseTeacherId;
-    private Byte status;
-}
+public class ShareTeamApplication extends SimpleShareApplication {}

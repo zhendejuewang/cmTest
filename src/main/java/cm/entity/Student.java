@@ -14,7 +14,7 @@ public class Student {
     private Long id;
     private String account;
     private String password;
-    private Byte isActive=1;
+    private Byte isActive=0;
     private String studentName;
     private String email;
     List<Long>courseIdList;

@@ -1,5 +1,6 @@
-package cm.security;
+package cm.config;
 
+import cm.config.JwtFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -14,22 +15,30 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception{
         http
+                .addFilter(new JwtFilter(authenticationManager()))
                 .authorizeRequests()
-                .antMatchers("/","/home").permitAll()
-                .antMatchers("/teacher/**").hasRole("Teacher")
-                .antMatchers("/student/**").hasRole("Student")
-                .antMatchers("/admin/**").hasRole("Admin");
-
+                .antMatchers("/", "/cm/login").permitAll()
+                .anyRequest().authenticated()
+                .antMatchers("/teacher/**").hasRole("TEACHER")
+                .antMatchers("/student/**").hasRole("STUDENT")
+                .antMatchers("/admin/**").hasRole("ADMIN");
         http
                 .formLogin()
                 .loginPage("/cm/login")
+                .loginProcessingUrl("/cm/login")
+                .usernameParameter("account")
+                .passwordParameter("password")
+                .successHandler(new LoginSuccessHandler())
+                .failureUrl("/adminLoginError")
                 .permitAll();
         http
                 .logout()
+                .logoutSuccessUrl("/cm/login")
                 .permitAll();
         http
                 .rememberMe()
                 .rememberMeParameter("cm_remember");
+
     }
 
     @Autowired

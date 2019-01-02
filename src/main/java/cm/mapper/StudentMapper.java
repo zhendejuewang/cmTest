@@ -242,4 +242,21 @@ public interface StudentMapper {
     })
     List<Student> listNoTeamStudentsByCourseId(@Param("courseId")Long courseId);
 
+    /**
+     * 根据klassId获得班级下未组队学生
+     * @param klassId
+     * @return java.util.List<cm.entity.Student>
+     */
+    @Select("select * from student where id in (select student_id from klass_student where klass_id=#{klassId})" +
+            "and id not in (select student_id from team_student where team_id in(select id from team where klass_id=#{klassId}))")
+    @Results({
+            @Result(property = "id",column = "id"),
+            @Result(property = "account",column = "account"),
+            @Result(property = "password",column = "password"),
+            @Result(property = "isActive",column = "is_active"),
+            @Result(property = "studentName",column = "student_name"),
+            @Result(property = "email",column = "email"),
+            @Result(property = "courseIdList", column = "id", many=@Many(select="cm.mapper.CourseMapper.listCourseIdByStudentId",fetchType = FetchType.LAZY))
+    })
+    List<Student> listNoTeamStudentsByKlassId(@Param("klassId")Long klassId);
 }

@@ -16,8 +16,8 @@ public class KlassSeminarVO {
     private Long id;
     private String topic;
     private String intro;
-    private Byte status;
-    private Byte order;
+    private Byte isVisible;
+    private Byte roundSerial;
     private Byte teamNumLimit;
     private String reportDDL;
 

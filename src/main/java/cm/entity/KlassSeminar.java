@@ -13,6 +13,7 @@ import java.sql.Timestamp;
 public class KlassSeminar {
     private Long id;
     private Long klassId;
+    private Long seminarId;
     private Timestamp reportDdl;
     private Byte status=0;
 }

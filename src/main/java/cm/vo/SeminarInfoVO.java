@@ -30,11 +30,8 @@ public class SeminarInfoVO {
 
     private Byte teamNumLimit;
 
-    /**
-     * AttendanceVO表示报名情况
-     */
     @JsonProperty("attendance")
-    private AttendanceVO attendanceVO;
+    private AttendanceListVO attendanceListVO;
 
     @JsonProperty("registerStartTime")
     private String enrollStartTime;

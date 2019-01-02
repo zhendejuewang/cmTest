@@ -72,7 +72,7 @@ public interface KlassSeminarMapper {
     KlassSeminar getByKlassSeminarId(@Param("klassSeminarId") Long klassSeminarId);
 
     /**
-     * 根据seminarId和klassI获得klassSeminar
+     * 根据seminarId和klassId获得klassSeminar
      * @param seminarId
      * @param klassId
      * @return cm.entity.KlassSeminar

@@ -23,13 +23,9 @@ public class SimpleSeminarScoreVO {
     private Byte seminarSerial;
 
     private String introduction;
-    /**
-     * seminarScore
-     */
 
     private BigDecimal totalScore;
 
-    @JsonProperty("preScore")
     private BigDecimal presentationScore;
 
     private BigDecimal questionScore;

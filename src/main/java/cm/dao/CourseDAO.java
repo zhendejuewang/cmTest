@@ -55,7 +55,6 @@ public class CourseDAO {
     }
 
     public int deleteByCourseId(Long courseId){
-
         return courseMapper.deleteByCourseId(courseId);
     }
 

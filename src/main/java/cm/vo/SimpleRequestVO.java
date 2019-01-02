@@ -12,21 +12,16 @@ import lombok.Data;
 public class SimpleRequestVO {
 
     private Long requestId;
+    private String leaderName;
+    private String reason;
     private String courseName;
     private String subCourseName;
     private String subCourseTeacherName;
 
     @JsonProperty("className")
     private String klassName;
-    private String leaderName;
-    private String reason;
-    /**
-     * 处理状态
-     * null为未处理
-     * 0为不同意
-     * 1为同意
-     */
-    private Byte status;
+
+    private Byte status;//null 未处理 0 不同意 1 同意
 
     public void setKlassName(Integer grade, Byte klassSerial) {
         this.klassName = String.valueOf(grade)+"(" +String.valueOf(klassSerial)+")";

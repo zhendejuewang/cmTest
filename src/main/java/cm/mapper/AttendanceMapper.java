@@ -127,6 +127,24 @@ public interface AttendanceMapper {
                                              @Param("teamId") Long teamId);
 
     /**
+     * 根据TeamId和KlassSeminarId获得attendance 得到某小组在某课程讨论课报名展示
+     * @param klassSeminarId
+     * @param teamOrder
+     * @return cm.entity.Attendance
+     */
+    @Select("select * from attendance where klass_seminar_id=#{klassSeminarId} and team_order=#{teamOrder}")
+    @Results({
+            @Result(property = "id",column = "id"),
+            @Result(property = "teamOrder",column = "team_order"),
+            @Result(property = "isPresent",column = "is_present"),
+            @Result(property = "reportName",column = "report_name"),
+            @Result(property = "reportUrl",column = "report_url"),
+            @Result(property = "pptName",column = "ppt_name"),
+            @Result(property = "pptUrl",column = "ppt_url")
+    })
+    Attendance getByKlassSeminarIdAndTeamOrder(@Param("klassSeminarId") Long klassSeminarId,
+                                               @Param("teamOrder") Integer teamOrder);
+    /**
      * 根据AttendanceId与StudentId获得attendance 得到该小组成员已报名的展示
      * @param attendanceId
      * @param studentId
@@ -262,4 +280,6 @@ public interface AttendanceMapper {
     })
     List<Attendance> listByRoundIdAndTeamId(@Param("roundId") Long roundId,
                                             @Param("teamId") Long teamId);
+
+
 }

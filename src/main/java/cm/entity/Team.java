@@ -15,7 +15,12 @@ public class Team {
     private Long klassId;
     private Long leaderId;
     private String teamName;
-    private Byte teamSerial;
+    private Integer teamSerial;
+    private Integer klassSerial;
     private Byte status=0;
     private List<Student>students;
+
+    public String getTeamNumber(){return getKlassSerial().toString()+"-"+
+            teamSerial.toString();
+    }
 }

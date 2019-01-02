@@ -14,6 +14,6 @@ public class Teacher {
     private String account;
     private String password;
     private String teacherName;
-    private Byte isActive=1;
+    private Byte isActive=0;
     private String email;
 }

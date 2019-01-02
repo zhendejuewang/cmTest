@@ -38,6 +38,10 @@ public class KlassSeminarDAO {
         return klassSeminarMapper.listByKlassId(klassId);
     }
 
+    public KlassSeminar getByKlassSeminarId(Long klassSeminarId){
+        return klassSeminarMapper.getByKlassSeminarId(klassSeminarId);
+    }
+
     public int deleteByKlassSeminarId(Long klassSeminarId){
         return klassSeminarMapper.deleteByKlassSeminarId(klassSeminarId);
     }

@@ -10,6 +10,16 @@ import lombok.Data;
  */
 @Data
 public class KlassVO {
+    private Integer grade;
+
+    private Byte klassSerial;
+
+    @JsonProperty("time")
+    private String klassTime;
+
+    @JsonProperty("location")
+    private String klassLocation;
+
     @JsonProperty("id")
     private Long klassId;
 
